@@ -3,7 +3,9 @@
 # https://cr.console.aliyun.com/cn-hangzhou/instance/credentials
 
 # Ensure the script exits if any command fails
-set -e
+set -euo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 # Define variables for the registry and image
 ALIYUN_REGISTRY="registry.cn-hangzhou.aliyuncs.com"
@@ -12,24 +14,27 @@ IMAGE_NAME="ai-agent-scaffold-lite-app"
 IMAGE_TAG="1.0"
 
 # 读取本地配置文件
-if [ -f ".local-config" ]; then
-  source .local-config
+if [ -f "${SCRIPT_DIR}/.local-config" ]; then
+  source "${SCRIPT_DIR}/.local-config"
 else
-  echo ".local-config 文件不存在，请创建并填写 ALIYUN_USERNAME 和 ALIYUN_PASSWORD"
+  echo "${SCRIPT_DIR}/.local-config 文件不存在，请创建并填写 ALIYUN_USERNAME 和 ALIYUN_PASSWORD"
   exit 1
 fi
 
+: "${ALIYUN_USERNAME:?请在 .local-config 中填写 ALIYUN_USERNAME}"
+: "${ALIYUN_PASSWORD:?请在 .local-config 中填写 ALIYUN_PASSWORD}"
+
 # Login to Aliyun Docker Registry
 echo "Logging into Aliyun Docker Registry..."
-docker login --username="${ALIYUN_USERNAME}" --password="${ALIYUN_PASSWORD}" $ALIYUN_REGISTRY
+printf '%s' "${ALIYUN_PASSWORD}" | docker login --username="${ALIYUN_USERNAME}" --password-stdin "${ALIYUN_REGISTRY}"
 
 # Tag the Docker image
 echo "Tagging the Docker image..."
-docker tag ${NAMESPACE}/${IMAGE_NAME}:${IMAGE_TAG} ${ALIYUN_REGISTRY}/${NAMESPACE}/${IMAGE_NAME}:${IMAGE_TAG}
+docker tag "${NAMESPACE}/${IMAGE_NAME}:${IMAGE_TAG}" "${ALIYUN_REGISTRY}/${NAMESPACE}/${IMAGE_NAME}:${IMAGE_TAG}"
 
 # Push the Docker image to Aliyun
 echo "Pushing the Docker image to Aliyun..."
-docker push ${ALIYUN_REGISTRY}/${NAMESPACE}/${IMAGE_NAME}:${IMAGE_TAG}
+docker push "${ALIYUN_REGISTRY}/${NAMESPACE}/${IMAGE_NAME}:${IMAGE_TAG}"
 
 echo "Docker image pushed successfully! "
 
@@ -38,4 +43,4 @@ echo "标签设置：docker tag ${ALIYUN_REGISTRY}/${NAMESPACE}/${IMAGE_NAME}:${
 
 # Logout from Aliyun Docker Registry
 echo "Logging out from Aliyun Docker Registry..."
-docker logout $ALIYUN_REGISTRY
+docker logout "${ALIYUN_REGISTRY}"

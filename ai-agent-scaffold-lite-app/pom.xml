@@ -11,6 +11,10 @@
 
     <packaging>jar</packaging>
 
+    <properties>
+        <skipTests>false</skipTests>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -79,7 +83,12 @@
             <version>2.9.0</version>
         </dependency>
 
-        <!-- 工程模块；启动依赖 trigger->domain, infrastructure-->
+        <!-- Application is framework-free; this module performs Spring bean assembly. -->
+        <dependency>
+            <groupId>cn.bugstack.ai</groupId>
+            <artifactId>ai-agent-scaffold-lite-application</artifactId>
+            <version>${project.version}</version>
+        </dependency>
         <dependency>
             <groupId>cn.bugstack.ai</groupId>
             <artifactId>ai-agent-scaffold-lite-trigger</artifactId>
@@ -116,7 +125,7 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.6</version>
                 <configuration>
-                    <skipTests>true</skipTests>
+                    <skipTests>${skipTests}</skipTests>
                     <testFailureIgnore>false</testFailureIgnore>
                     <includes>
                         <include>**/*Test.java</include>

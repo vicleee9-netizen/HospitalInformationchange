@@ -7,26 +7,16 @@
         <version>1.0</version>
     </parent>
 
-    <artifactId>ai-agent-scaffold-lite-trigger</artifactId>
+    <artifactId>ai-agent-scaffold-lite-application</artifactId>
 
     <dependencies>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <dependency>
             <groupId>cn.bugstack.ai</groupId>
-            <artifactId>ai-agent-scaffold-lite-api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>cn.bugstack.ai</groupId>
-            <artifactId>ai-agent-scaffold-lite-application</artifactId>
-            <version>${project.version}</version>
+            <artifactId>ai-agent-scaffold-lite-domain</artifactId>
         </dependency>
     </dependencies>
 
     <build>
-        <finalName>ai-agent-scaffold-lite-trigger</finalName>
+        <finalName>ai-agent-scaffold-lite-application</finalName>
     </build>
-
 </project>

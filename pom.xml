@@ -11,6 +11,7 @@
         <module>ai-agent-scaffold-lite-api</module>
         <module>ai-agent-scaffold-lite-app</module>
         <module>ai-agent-scaffold-lite-domain</module>
+        <module>ai-agent-scaffold-lite-application</module>
         <module>ai-agent-scaffold-lite-trigger</module>
         <module>ai-agent-scaffold-lite-infrastructure</module>
         <module>ai-agent-scaffold-lite-types</module>
@@ -125,6 +126,11 @@
             <dependency>
                 <groupId>cn.bugstack.ai</groupId>
                 <artifactId>ai-agent-scaffold-lite-domain</artifactId>
+                <version>1.0</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.bugstack.ai</groupId>
+                <artifactId>ai-agent-scaffold-lite-application</artifactId>
                 <version>1.0</version>
             </dependency>
             <dependency>

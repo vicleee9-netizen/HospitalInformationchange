@@ -34,6 +34,15 @@ build/
 ### VS Code ###
 .vscode/
 
+### Local secrets ###
+.local-config
+.env
+.env.*
+!.env.example
+
+### Runtime logs ###
+**/data/log/
+
 ### Mac OS ###
 .DS_Store
 /.mvn/

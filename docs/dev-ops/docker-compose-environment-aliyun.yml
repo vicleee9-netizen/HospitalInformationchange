@@ -9,7 +9,7 @@ services:
     restart: always
     environment:
       TZ: Asia/Shanghai
-      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD:?MYSQL_ROOT_PASSWORD_is_required}"
     ports:
       - "13306:3306"
     volumes:
@@ -32,9 +32,9 @@ services:
     ports:
       - 8899:80
     environment:
-      - PMA_HOST=mysql
-      - PMA_PORT=3306
-      - MYSQL_ROOT_PASSWORD=123qwe!@#QWE
+      PMA_HOST: mysql
+      PMA_PORT: 3306
+      MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD:?MYSQL_ROOT_PASSWORD_is_required}"
     depends_on:
       mysql:
         condition: service_healthy
@@ -62,7 +62,6 @@ services:
       retries: 3
 
   # RedisAdmin https://github.com/joeferner/redis-commander
-  # 账密 admin/admin
   redis-admin:
     image: registry.cn-hangzhou.aliyuncs.com/xfg-studio/redis-commander:0.8.0
     container_name: redis-admin
@@ -71,12 +70,12 @@ services:
     ports:
       - 8081:8081
     environment:
-      - REDIS_HOSTS=local:redis:6379
-      - HTTP_USER=admin
-      - HTTP_PASSWORD=admin
-      - LANG=C.UTF-8
-      - LANGUAGE=C.UTF-8
-      - LC_ALL=C.UTF-8
+      REDIS_HOSTS: local:redis:6379
+      HTTP_USER: "${REDIS_ADMIN_USERNAME:?REDIS_ADMIN_USERNAME_is_required}"
+      HTTP_PASSWORD: "${REDIS_ADMIN_PASSWORD:?REDIS_ADMIN_PASSWORD_is_required}"
+      LANG: C.UTF-8
+      LANGUAGE: C.UTF-8
+      LC_ALL: C.UTF-8
     networks:
       - my-network
     depends_on:

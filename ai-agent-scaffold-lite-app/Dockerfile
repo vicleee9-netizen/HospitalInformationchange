@@ -5,6 +5,7 @@ FROM openjdk:17-jdk-slim
 MAINTAINER xiaofuge
 
 # 配置
+ENV JAVA_OPTS=""
 ENV PARAMS=""
 
 # 时区
@@ -14,4 +15,4 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 # 添加应用
 ADD target/ai-agent-scaffold-lite-app.jar /ai-agent-scaffold-lite-app.jar
 
-ENTRYPOINT ["sh","-c","java -jar $JAVA_OPTS /ai-agent-scaffold-lite-app.jar $PARAMS"]
+ENTRYPOINT ["sh","-c","exec java $JAVA_OPTS -jar /ai-agent-scaffold-lite-app.jar $PARAMS"]
