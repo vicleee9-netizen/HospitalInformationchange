@@ -20,6 +20,10 @@
         </dependency>
         <dependency>
             <groupId>cn.bugstack.ai</groupId>
+            <artifactId>ai-agent-scaffold-lite-types</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>cn.bugstack.ai</groupId>
             <artifactId>ai-agent-scaffold-lite-application</artifactId>
             <version>${project.version}</version>
         </dependency>

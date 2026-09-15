@@ -20,10 +20,9 @@
             <artifactId>lombok</artifactId>
         </dependency>
 
-        <!-- 系统模块 -->
         <dependency>
             <groupId>cn.bugstack.ai</groupId>
-            <artifactId>ai-agent-scaffold-lite-domain</artifactId>
+            <artifactId>ai-agent-scaffold-lite-application</artifactId>
         </dependency>
     </dependencies>
 
